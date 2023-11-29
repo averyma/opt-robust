@@ -1,58 +1,55 @@
 # Understanding the robustness difference between stochastic gradient descent and adaptive gradient methods
 
-This is the official repository of "Understanding the robustness difference between stochastic gradient descent and adaptive gradient methods" accepted at TMLR with Featured Certification.
+This is the official repository of "Understanding the robustness difference between stochastic gradient descent and adaptive gradient methods" accepted at Transactions on Machine Learning Research (TMLR).
+
+![Comparing model robustness](figures/comparison.png)
+**Comparison between models trained using SGD, Adam, and RMSProp across seven benchmark datasets.** 
+Each colored triplet denotes models on the same dataset. Models trained by different algorithms have similar standard generalization performance, but there is a distinct robustness difference as measured by the test data accuracy under Gaussian noise and adversarial perturbations. 
 
 ## Requirements
-This code has been tested with  
-python 3.9.15   
-pytorch 2.0.1   
-torchvision 0.15.2   
-numpy 1.22.4   
+To run the code, the following packages are needed:
+- Python 3.9.15
+- PyTorch 2.0.1
+- torchvision 0.15.2
+- numpy 1.22.4
 
 ## Checkpoints
-We provide six model [checkpoints](https://drive.google.com/drive/folders/1es5dmvHL35uPfUHclxvylA2dS_LNlS33?usp=drive_link). They are PreActResNet18 models trained on CIFAR10/100 with SGD, Adam, and RMSProp. 
+Access our model checkpoints [here](https://drive.google.com/drive/folders/1es5dmvHL35uPfUHclxvylA2dS_LNlS33?usp=drive_link), including PreActResNet18 models trained on CIFAR10/100 using SGD, Adam, and RMSProp. For detailed settings, refer to our paper.
 
-| Model | Standard Accuracy | Gaussian ($\sigma^2 = 0.007$) | $\ell_2$ AutoAttack ($\epsilon = 0.3$) | $\ell_\infty$ AutoAttack ($\epsilon = \frac{4}{255}$) |
-| -------- | -------- | -------- | -------- | -------- |
-| cifar10-sgd      | 89.86%   | 69.54%   | 17.50%    | 1.00%    | 
-| cifar10-adam     | 90.77%   | 58.70%   | 11.10%    | 0.20%    |
-| cifar10-rmsprop  | 90.64%   | 62.93%   | 8.90%     | 0.50%    |
-| cifar100-sgd     | 83.64%   | 65.46%   | 57.40%    | 39.00%   |
-| cifar100-adam    | 86.70%   | 49.14%   | 52.20%    | 33.60%   |
-| cifar100-rmsprop | 86.08%   | 52.13%   | 56.50%    | 36.60%   |
-
-Additionally, we provide the weight adaptation history for the training of the linear model on the synthetic dataset.
-
-
-## Reproducing results
-- To evaluate model robustness on Gaussian noise, $\ell_2$ and $\ell_\infty$ AutoAttacks with various $\epsilon$, run:
+## Model training and evaluation
+- To evaluate model robustness under Gaussian noise, $\ell_2$ and $\ell_\infty$ AutoAttacks with various $\epsilon$, run:
 ```
-python3 main.py --dataset cifar10 --pretrain './ckpt/cifar10-adam.pt' --j_dir './exp' --eval_only
+python3 main.py --eval_only --dataset cifar10 --pretrain './ckpt/cifar10-adam.pt' --j_dir './exp'
 ```
 
-- Standard training on PreActResNet18 with SGD 200 epochs**, run:
+- To perform standard training on PreActResNet18 with SGD for 200 epochs:
 ```
-python3 main.py --method standard --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.01 
-```
-
-- Training with augmented data by removing high-frequency component, run:
-```
-python3 main.py --method remove_high_freq --threshold 90 --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.01
+python3 main.py --method standard --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.2 --lr_scheduler_type multistep --weight_decay 0
 ```
 
-- Training with augmented data by removing low spectral energy component, run:
+- To train with augmented data by removing parts of the signal with low spectrum energy:
 ```
-python3 main.py --method remove_low_amp --threshold 90 --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.01
+python3 main.py --method remove_low_amp --threshold 90 --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.2 --lr_scheduler_type multistep --weight_decay 0
 ```
 
-## Observing the presence of irrelevant frequency in natural datasets
-1. Visualizing the spectral energy of natural dataset.
-2. Visualizing augmented images (removing components with high frequency or low spectral energy).
-3. Evaluating model robustness under band-limited Gaussian noise.
+- To train with augmented data by removing parts of the signal with high frequencies:
+```
+python3 main.py --method remove_high_freq --threshold 90 --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.2 --lr_scheduler_type multistep --weight_decay 0
+```
+## Observing the Presence of Irrelevant Frequencies in Natural Datasets
+1. **Spectral Energy Visualization**: Explore the spectral energy distribution of natural datasets. [View Notebook](./notebook/fig8_spectral_energy.ipynb)
+2. **Augmented Image Visualization**: See how removing high-frequency components or low spectral energy parts affects images. [View Notebook](./notebook/fig12_augmented_images.ipynb)
+3. **Model Robustness Evaluation**: Assess model robustness under band-limited Gaussian noises. [View Notebook](./notebook/fig4_band_limited_gaussian.ipynb)
 
-## Training linear models on the synthetic dataset and plotting the results
-1.
-2.
+
+## Linear Regression Analysis with an Over-parameterized Model
+1. Training linear models on the three-dimensional synthetic dataset, with GD, signGD, Adam, and RMSProp: ```./notebook/fig12_augmented_images.ipynb```
+2. Plotting the dynamics of the error term, the standard population risk and the adversarial population risk:```./notebook/fig12_augmented_images.ipynb```
+
+## Linear Regression Analysis with an Over-parameterized Model
+1. **Training Linear Models**: Train linear models on a three-dimensional synthetic dataset using GD, signGD, Adam, and RMSProp. [View Notebook](./notebook/train_linear_models.ipynb)
+2. **Error Dynamics and Risks Plotting**: Visualize the dynamics of the error term, standard population risk, and adversarial population risk. [View Notebook](./notebook/fig5_error_dynamics_risks.ipynb)
+
 
 ## Citing this Work 
 ```
@@ -70,4 +67,3 @@ note={Featured Certification}
 
 ## License
 MIT License
-
