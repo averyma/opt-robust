@@ -39,12 +39,6 @@ def get_model(args):
     return model
 
 def get_optim(parameters, args):
-    """
-    recommended setup:
-    SGD_step: initial lr:0.1, momentum: 0.9, weight_decay: 0.0002, miliestones: [100, 150]
-    Adam_step: initial lr:0.1, milestones: [80,120,160,180]
-    others: constant lr at 0.001 should be sufficient
-    """
 
     if "sgd" in args.optim:
         opt = optim.SGD(parameters, lr=args.lr, momentum=0, weight_decay=args.weight_decay)
@@ -53,7 +47,6 @@ def get_optim(parameters, args):
     elif "rmsprop" in args.optim:
         opt = optim.RMSprop(parameters, lr=args.lr, alpha=args.rmsp_alpha, weight_decay=args.weight_decay, momentum=args.momentum, centered=False)
 
-    # check if milestone is an empty array
     if args.lr_scheduler_type == "multistep":
         _milestones = [args.epoch/ 2, args.epoch * 3 / 4]
         main_lr_scheduler = optim.lr_scheduler.MultiStepLR(opt, milestones=_milestones, gamma=0.1)

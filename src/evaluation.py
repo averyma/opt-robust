@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from src.utils_freq import rgb2gray, dct, dct2, idct, idct2, batch_dct, batch_dct2, batch_idct2, getDCTmatrix, mask_radial, batch_idct2_3channel, batch_dct2_3channel, mask_radial_multiple_radius
-import ipdb
 from tqdm import trange
 from autoattack import AutoAttack
 import numpy as np
@@ -71,7 +70,6 @@ def test_gaussian(loader, model, var, device):
     return test_acc, test_acc_5
 
 def test_gaussian_LF_HF(loader, dataset, model, var, radius_list, num_noise, device):
-
     img_size = 32
     channel = 3
     dct_matrix = getDCTmatrix(32)
@@ -85,7 +83,6 @@ def test_gaussian_LF_HF(loader, dataset, model, var, radius_list, num_noise, dev
     total_correct_noise = np.zeros(len(radius_list)+1)
     total_samples = 0
     CELoss_sum = torch.nn.CrossEntropyLoss(reduction = 'sum')
-    CELoss_mean = torch.nn.CrossEntropyLoss(reduction = 'mean')
     
     with torch.no_grad(): 
         for x,y in loader:
@@ -120,7 +117,6 @@ def test_gaussian_LF_HF(loader, dataset, model, var, radius_list, num_noise, dev
     return [total_loss.item(), total_loss_noise], [total_acc.item(), total_acc_noise]
 
 def test_AA(loader, model, norm, eps, attacks_to_run=None, verbose=False):
-
     assert norm in ['L2', 'Linf']
 
     adversary = AutoAttack(model, norm=norm, eps=eps, version='standard', verbose=verbose)

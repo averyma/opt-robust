@@ -24,7 +24,6 @@ def rgb2gray(rgb_input):
     return gray_output
 
 def getDCTmatrix(size):
-
     home_dir = '/scratch/ssd001/home/ama/workspace/opt-robust/dct_matrix/'
     """
         Computed using C_{jk}^{N} found in the following link:
