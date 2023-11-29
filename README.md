@@ -37,13 +37,13 @@ python3 main.py --method remove_low_amp --threshold 90 --dataset cifar10 --j_dir
 python3 main.py --method remove_high_freq --threshold 90 --dataset cifar10 --j_dir './exp' --optim sgd --epoch 200 --lr 0.2 --lr_scheduler_type multistep --weight_decay 0
 ```
 ## Observing the Presence of Irrelevant Frequencies in Natural Datasets
-1. **Spectral Energy Visualization**: Explore the spectral energy distribution of natural datasets. [View Notebook](./notebook/fig8_spectral_energy.ipynb)
-2. **Augmented Image Visualization**: See how removing high-frequency components or low spectral energy parts affects images. [View Notebook](./notebook/fig12_augmented_images.ipynb)
-3. **Model Robustness Evaluation**: Assess model robustness under band-limited Gaussian noises. [View Notebook](./notebook/fig4_band_limited_gaussian.ipynb)
+1. **Spectral Energy Visualization**: Explore the spectral energy distribution of natural datasets. [notebook](./notebook/fig8_spectral_energy.ipynb)
+2. **Augmented Image Visualization**: See how removing high-frequency or low spectral energy components affects images. [notebook](./notebook/fig12_augmented_images.ipynb)
+3. **Model Robustness Evaluation**: Assess model robustness under band-limited Gaussian noises. [notebook](./notebook/fig4_band_limited_gaussian.ipynb)
 
 ## Linear Regression Analysis with an Over-parameterized Model
-1. **Training Linear Models**: Train linear models on a three-dimensional synthetic dataset using GD, signGD, Adam, and RMSProp. [View Notebook](./notebook/train_linear_model.ipynb)
-2. **Error Dynamics and Risks Plotting**: Visualize the dynamics of the error term, standard population risk, and adversarial population risk. [View Notebook](./notebook/fig5_error_dynamics_risks.ipynb)
+1. **Training Linear Models**: Train linear models on a three-dimensional synthetic dataset using GD, signGD, Adam, and RMSProp. [notebook](./notebook/train_linear_model.ipynb)
+2. **Error Dynamics and Risks Plotting**: Visualize the dynamics of the error term, standard population risk, and adversarial population risk. [notebook](./notebook/fig5_linear_analysis.ipynb)
 
 
 ## Citing this Work 
