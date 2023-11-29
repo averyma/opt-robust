@@ -41,13 +41,8 @@ python3 main.py --method remove_high_freq --threshold 90 --dataset cifar10 --j_d
 2. **Augmented Image Visualization**: See how removing high-frequency components or low spectral energy parts affects images. [View Notebook](./notebook/fig12_augmented_images.ipynb)
 3. **Model Robustness Evaluation**: Assess model robustness under band-limited Gaussian noises. [View Notebook](./notebook/fig4_band_limited_gaussian.ipynb)
 
-
 ## Linear Regression Analysis with an Over-parameterized Model
-1. Training linear models on the three-dimensional synthetic dataset, with GD, signGD, Adam, and RMSProp: ```./notebook/fig12_augmented_images.ipynb```
-2. Plotting the dynamics of the error term, the standard population risk and the adversarial population risk:```./notebook/fig12_augmented_images.ipynb```
-
-## Linear Regression Analysis with an Over-parameterized Model
-1. **Training Linear Models**: Train linear models on a three-dimensional synthetic dataset using GD, signGD, Adam, and RMSProp. [View Notebook](./notebook/train_linear_models.ipynb)
+1. **Training Linear Models**: Train linear models on a three-dimensional synthetic dataset using GD, signGD, Adam, and RMSProp. [View Notebook](./notebook/train_linear_model.ipynb)
 2. **Error Dynamics and Risks Plotting**: Visualize the dynamics of the error term, standard population risk, and adversarial population risk. [View Notebook](./notebook/fig5_error_dynamics_risks.ipynb)
 
 
