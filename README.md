@@ -50,10 +50,10 @@ python3 main.py --method remove_high_freq --threshold 90 --dataset cifar10 --j_d
 ```
 @article{
 ma2023understanding,
-title={Understanding the robustness difference between stochastic gradient descent and adaptive gradient methods
-},
+title={Understanding the robustness difference between stochastic gradient descent and adaptive gradient methods},
 author={Avery Ma and Yangchen Pan and Amir-massoud Farahmand},
 journal={Transactions on Machine Learning Research},
+issn={2835-8856},
 year={2023},
 url={https://openreview.net/forum?id=ed8SkMdYFT},
 note={Featured Certification}
